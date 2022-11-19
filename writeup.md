@@ -55,9 +55,8 @@ predictedState(5) = curState(5) + dt * accelI.z - dt * CONST_GRAVITY;
 ```
 ## Implement the magnetometer update
 
-This is a straight forward implementation as it is a direct reding of the measured yaw; the only thing to make sure is that the reading is properly clamped between -2 $\pi$ and +2 $\pi$ and.
+This is a straight forward implementation as it is a direct reding of the measured yaw; the only thing to make sure is that the reading is properly clamped between -2 $\pi$ and +2 $\pi$.  
 
-Again since this is linear, the derivative h'(x_t) is a matrix of zeros and ones: 
 $$
 \begin{align}
   z_t=  \left[\begin{array}{c}
@@ -73,6 +72,7 @@ $$
       \end{array}\right]
 \end{align}
 $$
+
 Again since this is linear, the derivative is a matrix of zeros and ones: 
 
 $$
@@ -95,7 +95,8 @@ hPrime(6) = 1;
 
 This is a very simple update
 
-The state space is simplified to igonore heading, pitch and roll (with the respecitve derivates), hence it only includes position and speed:
+The state space is simplified to igonore heading, pitch and roll (with the respecitve derivates), hence it only includes position and speed:  
+
 $$
 \begin{align}
   z_t &= \left[ \begin{array}{c}
@@ -109,7 +110,8 @@ $$
 \end{align}
 $$ 
 
-The measurement model is as follows:
+The measurement model is as follows:  
+
 $$
 \begin{align}
   h(x_t) = \left[\begin{array}{c}
