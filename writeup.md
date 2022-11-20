@@ -142,16 +142,16 @@ minMotorThrust = .1
 maxMotorThrust = 4.5
 
 # Position control gains
-kpPosXY = 3
-kpPosZ = 10
-KiPosZ = 40
+kpPosXY = 1.5
+kpPosZ = 1.5
+KiPosZ = 30
 
 # Velocity control gains
 kpVelXY = 6
-kpVelZ = 30
+kpVelZ = 20
 
 # Angle control gains
-kpBank = 20
+kpBank = 10
 kpYaw = 1.6
 
 # Angle rate gains
@@ -163,11 +163,12 @@ maxDescentRate = 2
 maxSpeedXY = 5
 maxHorizAccel = 12
 maxTiltAngle = .7
+
 ```
 
 I've swapped the `QuadControl.cpp` file with the one made in the previous project, and the tuning was conducted one this one. (The original file is still kept in the repo for refernce as `QuadControl.original.cpp`).  
 The result is a somewhat bumpy ride, yet within the specification envelope. (this could be surely further refined.)
 
-![GPS Update](./images/11_GPS_non_ideal_est.png)
+![GPS Update](./images/11_GPS_realistic.png)
 
 ### &check; The simulation has completed the entire simulation cycle with estimated position error of < 1m.

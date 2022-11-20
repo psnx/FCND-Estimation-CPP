@@ -214,18 +214,19 @@ MatrixXf QuadEstimatorEKF::GetRbgPrime(float roll, float pitch, float yaw)
 
   ////////////////////////////// BEGIN STUDENT CODE ///////////////////////////
 
-  float theta = pitch;
-  float phi = roll ;
-  float psi = yaw ;
+  // roll: θ; pitch: φ;yaw: ψ
+  const float& theta = roll; // θ
+  const float& phi = pitch ; // φ
+  const float& psi = yaw ; //ψ
 
   // Estimation for Quadrotors, 7.2 (Page 9), equation 52 (https://www.overleaf.com/project/5c34caab7ecefc04087273b9)
-  RbgPrime(0,0) = -cos(theta) * sin (psi);
-  RbgPrime(0,1) = -sin(phi)*sin(pitch)*sin(psi) - cos(pitch)*cos(psi);
-  RbgPrime(0,2) = -cos(phi)*sin(pitch)*sin(psi) + sin(roll)*cos(psi);
+  RbgPrime(0,0) = -cos(theta) * sin(psi);
+  RbgPrime(0,1) = -sin(phi)*sin(theta)*sin(psi) - cos(phi)*cos(psi);
+  RbgPrime(0,2) = -cos(phi)*sin(theta)*sin(psi) + sin(phi)*cos(psi);
 
   RbgPrime(1,0) = cos(theta)*cos(psi);
-  RbgPrime(1,1) = sin(phi)*sin(theta)*cos(psi) - cos(roll)*sin(psi);
-  RbgPrime(1,2) = cos(phi)*sin(theta)*cos(psi) + sin(roll)*sin(psi);
+  RbgPrime(1,1) = sin(phi)*sin(theta)*cos(psi) - cos(phi)*sin(psi);
+  RbgPrime(1,2) = cos(phi)*sin(theta)*cos(psi) + sin(phi)*sin(psi);
 
   /*
   RbgPrime(2,0) = 0;
@@ -313,20 +314,10 @@ void QuadEstimatorEKF::UpdateFromGPS(V3F pos, V3F vel)
   ////////////////////////////// BEGIN STUDENT CODE ///////////////////////////
   // Estimation for Quadrotors Section 7.3.1 - straight forward
 
-  zFromX(0) = ekfState(0);
-  zFromX(1) = ekfState(1);
-  zFromX(2) = ekfState(2);
-  zFromX(3) = ekfState(3);
-  zFromX(4) = ekfState(4);
-  zFromX(5) = ekfState(5);
-
-  hPrime(0, 0) = 1;
-  hPrime(1, 1) = 1;
-  hPrime(2, 2) = 1;
-  hPrime(3, 3) = 1;
-  hPrime(4, 4) = 1;
-  hPrime(5, 5) = 1;
-
+  for (int i=0;i<6;i++){
+    hPrime(i,i) = 1;
+    zFromX(i) = ekfState(i);
+  }
 
   /////////////////////////////// END STUDENT CODE ////////////////////////////
 
